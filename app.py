@@ -1,4 +1,4 @@
-from flask import Flask, url_for, request
+from flask import Flask, url_for, request, render_template
 
 app = Flask(__name__)
 
@@ -6,9 +6,10 @@ app = Flask(__name__)
 def index():
     return 'Index Page'
 
-@app.route('/hi')
-def hi():
-    return 'Hi, World!'
+@app.route('/hello/')
+@app.route('/hello/<name>')
+def hello(name=None):
+    return render_template('hello.html', name=name)
 
 #Variable Rules
 @app.route('/user/<username>')
@@ -44,7 +45,5 @@ def login():
 
 with app.test_request_context():
     print(url_for('index'))
-    print(url_for('hi'))
-    print(url_for('hi', next='/'))
-    print(url_for('show_user_profile', username='ck chivatsi'))
+    print(url_for('show_user_profile', username='ck chai'))
 
